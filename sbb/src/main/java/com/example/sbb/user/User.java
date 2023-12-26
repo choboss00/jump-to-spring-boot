@@ -1,2 +1,33 @@
-package com.example.sbb.user;public class User {
+package com.example.sbb.user;
+
+import com.example.sbb.config.BaseTime;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "USER")
+public class User extends BaseTime {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(length = 20, nullable = false, unique = true)
+    private String name;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    @Column(length = 50, nullable = false, unique = true)
+    private String email;
+
+    @Column(length = 50, nullable = false, unique = true)
+    private String nickName;
+
+    @Column(length = 20, nullable = false)
+    private String role;
 }
