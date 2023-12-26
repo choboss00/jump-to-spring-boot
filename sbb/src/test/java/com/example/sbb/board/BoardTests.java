@@ -30,4 +30,19 @@ public class BoardTests {
 
         assertThat(b1.getTitle()).isEqualTo("제목");
     }
+
+    @Test
+    @DisplayName("JPA 삭제 테스트")
+    void testDeleteJpa() {
+        // given
+        Board board = Board.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+        // when
+        boardRepository.save(board);
+
+        // then
+        boardRepository.delete(board);
+    }
 }
