@@ -11,8 +11,7 @@
 
 ### 필수기능만 구현할 때
 
-![2](https://github.com/choboss00/jump-to-springBoot/assets/111727212/bf4aee33-29ba-4897-a72a-9b5acdcd6a94)
----
+![image](https://github.com/choboss00/jump-to-spring-boot/assets/111727212/18f64c14-c7dd-4c05-b407-5d97a93cecc5)---
 
 ## 구현해야하는 기능
 
