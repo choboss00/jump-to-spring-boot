@@ -26,6 +26,10 @@ dependencies {
 
 	// restdocs 부분 추가
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+	// spring-security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {
