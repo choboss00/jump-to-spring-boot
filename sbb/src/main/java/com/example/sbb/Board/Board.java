@@ -6,13 +6,15 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "BOARD")
+@Where(clause = "deleted_at IS NULL")
+@SQLDelete(sql = "UPDATE BOARD SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
 public class Board extends BaseTime {
 
     @Id

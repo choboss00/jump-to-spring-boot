@@ -6,11 +6,15 @@ import com.example.sbb.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Table(name = "COMMENT")
+@Where(clause = "deleted_at IS NULL")
+@SQLDelete(sql = "UPDATE COMMENT SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
 public class Comment extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
