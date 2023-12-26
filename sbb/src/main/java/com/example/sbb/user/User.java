@@ -3,6 +3,7 @@ package com.example.sbb.user;
 import com.example.sbb.config.BaseTime;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -34,4 +35,13 @@ public class User extends BaseTime {
 
     @Column(length = 20, nullable = false)
     private String role;
+
+    @Builder
+    public User(String name, String password, String email, String nickName, String role) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.nickName = nickName;
+        this.role = role;
+    }
 }

@@ -4,6 +4,7 @@ import com.example.sbb.Board.Board;
 import com.example.sbb.config.BaseTime;
 import com.example.sbb.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -29,5 +30,10 @@ public class Comment extends BaseTime {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-
+    @Builder
+    public Comment(User user, Board board, String content) {
+        this.user = user;
+        this.board = board;
+        this.content = content;
+    }
 }
