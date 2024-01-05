@@ -26,7 +26,17 @@ public class UserRequest {
         private String nickname;
 
         @NotNull(message = "role is required")
-        private String role;
+        private Role role;
+
+        public User toEntity() {
+            return User.builder()
+                    .name(username)
+                    .password(password)
+                    .email(email)
+                    .nickName(nickname)
+                    .role(role)
+                    .build();
+        }
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.sbb.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +15,9 @@ public class UserRestController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody @Valid UserRequest.UserCreateDTO userCreateDTO, Error errors) {
+    public String signup(@RequestBody @Valid UserRequest.UserCreateDTO userCreateDTO, Error errors) {
         userService.signup(userCreateDTO); // TO-DO : 회원가입 Service 로직 생성
-        return ResponseEntity.ok().build();
+        return "redirect:/";
     }
 
 }

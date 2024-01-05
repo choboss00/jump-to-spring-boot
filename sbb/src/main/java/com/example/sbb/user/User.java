@@ -34,6 +34,7 @@ public class User extends BaseTime {
     private String nickName;
 
     @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
@@ -43,5 +44,9 @@ public class User extends BaseTime {
         this.email = email;
         this.nickName = nickName;
         this.role = role;
+    }
+
+    public boolean isNull() {
+        return this.id == null;
     }
 }
