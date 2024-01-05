@@ -1,6 +1,6 @@
 package com.example.sbb.user;
 
-import com.example.sbb.config.BaseTime;
+import com.example.sbb.config.utils.BaseTime;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

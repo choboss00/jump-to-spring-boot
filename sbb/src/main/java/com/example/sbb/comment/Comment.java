@@ -1,7 +1,7 @@
 package com.example.sbb.comment;
 
 import com.example.sbb.Board.Board;
-import com.example.sbb.config.BaseTime;
+import com.example.sbb.config.utils.BaseTime;
 import com.example.sbb.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
