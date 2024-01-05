@@ -34,10 +34,10 @@ public class User extends BaseTime {
     private String nickName;
 
     @Column(length = 20, nullable = false)
-    private String role;
+    private Role role;
 
     @Builder
-    public User(String name, String password, String email, String nickName, String role) {
+    public User(String name, String password, String email, String nickName, Role role) {
         this.name = name;
         this.password = password;
         this.email = email;
