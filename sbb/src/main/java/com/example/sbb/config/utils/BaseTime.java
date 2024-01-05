@@ -1,4 +1,4 @@
-package com.example.sbb.config;
+package com.example.sbb.config.utils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
