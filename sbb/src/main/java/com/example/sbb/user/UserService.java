@@ -32,9 +32,8 @@ public class UserService {
     private void validateUserEmail(String email) {
         User user = userRepository.findByEmail(email);
 
-        if ( !user.isNull() ) {
+        if (user != null) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
-
     }
 }
