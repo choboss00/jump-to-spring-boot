@@ -12,7 +12,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "USER")
+@Table(name = "USERS")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE USER SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
 public class User extends BaseTime {
@@ -46,7 +46,4 @@ public class User extends BaseTime {
         this.role = role;
     }
 
-    public boolean isNull() {
-        return this.id == null;
-    }
 }

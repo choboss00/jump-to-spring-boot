@@ -13,7 +13,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "BOARD")
+@Table(name = "BOARDS")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE BOARD SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
 public class Board extends BaseTime {

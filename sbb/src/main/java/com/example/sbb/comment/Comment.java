@@ -13,7 +13,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Entity
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-@Table(name = "COMMENT")
+@Table(name = "COMMENTS")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE COMMENT SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
 public class Comment extends BaseTime {
