@@ -1,2 +1,4 @@
-package com.example.sbb.user;public class UserResponse {
+package com.example.sbb.user;
+
+public class UserResponse {
 }

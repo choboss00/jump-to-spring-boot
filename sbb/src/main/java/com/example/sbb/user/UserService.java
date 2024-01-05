@@ -1,2 +1,7 @@
-package com.example.sbb.user;public class UserService {
+package com.example.sbb.user;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
 }
