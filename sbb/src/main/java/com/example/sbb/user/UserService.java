@@ -3,14 +3,17 @@ package com.example.sbb.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final UserRepository userRepository;
 
+    @Transactional
     public void signup(UserRequest.UserCreateDTO userCreateDTO) {
         // 회원가입 로직 구현 : 동일한 이메일이 존재하는지 검증 후 비밀번호 암호화 후 저장
 
