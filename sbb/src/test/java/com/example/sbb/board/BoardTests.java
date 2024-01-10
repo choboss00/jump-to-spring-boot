@@ -1,7 +1,7 @@
 package com.example.sbb.board;
 
 import com.example.sbb.Board.Board;
-import com.example.sbb.Board.BoardRepository;
+import com.example.sbb.Board.BoardJPARepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 public class BoardTests {
 
     @Autowired
-    private BoardRepository boardRepository;
+    private BoardJPARepository boardJPARepository;
 
     @Test
     @DisplayName("JPA 동작 테스트")
@@ -23,10 +23,10 @@ public class BoardTests {
                 .content("내용")
                 .build();
         // when
-        boardRepository.save(board);
+        boardJPARepository.save(board);
 
         // then
-        Board b1 = boardRepository.findById(1).orElseThrow(RuntimeException::new);
+        Board b1 = boardJPARepository.findById(1).orElseThrow(RuntimeException::new);
 
         assertThat(b1.getTitle()).isEqualTo("제목");
     }
@@ -40,9 +40,9 @@ public class BoardTests {
                 .content("내용")
                 .build();
         // when
-        boardRepository.save(board);
+        boardJPARepository.save(board);
 
         // then
-        boardRepository.delete(board);
+        boardJPARepository.delete(board);
     }
 }

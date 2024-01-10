@@ -1,39 +1,61 @@
 package com.example.sbb.user;
 
+import com.example.sbb.RestDoc;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.test.web.servlet.ResultActions;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
-public class UserTests {
+public class UserTests extends RestDoc {
 
     @Autowired
-    private UserService userService;
+    private UserJPARepository userJPARepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private ObjectMapper om;
 
     @Test
     @DisplayName("회원가입 로직 테스트")
-    void CreateUserTests() {
+    void CreateUserTests() throws Exception {
         // given
-        UserRequest.UserCreateDTO userCreateDTO = new UserRequest.UserCreateDTO();
+        UserRequest.SignupDTO signupDTO = new UserRequest.SignupDTO();
 
-        userCreateDTO.setUsername("test");
-        userCreateDTO.setEmail("test@example.com");
-        userCreateDTO.setPassword("test1234");
-        userCreateDTO.setNickname("testst");
-        userCreateDTO.setRole(Role.USER);
+        signupDTO.setUsername("test");
+        signupDTO.setEmail("test@example.com");
+        signupDTO.setPassword("test1234");
+        signupDTO.setNickname("testst");
+        signupDTO.setRole(Role.USER);
+
         // when
-        userService.signup(userCreateDTO);
+        ResultActions resultActions = mvc.perform(post("/api/user/signup")
+                .contentType("application/json")
+                .content(om.writeValueAsString(signupDTO)));
+
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : "+responseBody);
 
         // then
-        User user = userRepository.findByEmail("test@example.com");
+        resultActions.andExpect(jsonPath("$.status").value("success"));
 
-        assertEquals(user.getName(), "test");
+    }
 
+    @Test
+    @DisplayName("로그인 테스트")
+    void UserLoginTests() throws Exception {
+        // given
+        CreateUserTests();
+
+        UserRequest.LoginDTO loginDTO = new UserRequest.LoginDTO("test@example.com", "test1234");
+
+        // when
+
+        // then
     }
 
 }
