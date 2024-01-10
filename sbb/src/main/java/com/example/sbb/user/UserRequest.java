@@ -33,7 +33,7 @@ public class UserRequest {
                     .name(username)
                     .password(password)
                     .email(email)
-                    .nickName(nickname)
+                    .nickname(nickname)
                     .role(role)
                     .build();
         }

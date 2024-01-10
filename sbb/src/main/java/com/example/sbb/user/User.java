@@ -31,18 +31,18 @@ public class User extends BaseTime {
     private String email;
 
     @Column(length = 50, nullable = false, unique = true)
-    private String nickName;
+    private String nickname;
 
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    public User(String name, String password, String email, String nickName, Role role) {
+    public User(String name, String password, String email, String nickname, Role role) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.nickName = nickName;
+        this.nickname = nickname;
         this.role = role;
     }
 
