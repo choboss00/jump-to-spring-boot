@@ -11,29 +11,29 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private final UserRepository userRepository;
+    private final UserJPARepository userJPARepository;
 
     @Transactional
-    public void signup(UserRequest.UserCreateDTO userCreateDTO) {
+    public void signup(UserRequest.SignupDTO signupDTO) throws IllegalAccessException {
         // 회원가입 로직 구현 : 동일한 이메일이 존재하는지 검증 후 비밀번호 암호화 후 저장
 
-        // 검증
-        validateUserEmail(userCreateDTO.getEmail());
-
         // 암호화
-        userCreateDTO.setPassword(passwordEncoder.encode(userCreateDTO.getPassword()));
+        signupDTO.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
 
         // 저장
-        userRepository.save(userCreateDTO.toEntity());
-
+        userJPARepository.save(signupDTO.toEntity());
 
     }
 
-    private void validateUserEmail(String email) {
-        User user = userRepository.findByEmail(email);
 
-        if (user != null) {
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+    @Transactional
+    public void login(UserRequest.LoginDTO loginDTO) {
+        // 로그인 로직 구현 : 동일한 이메일이 존재하는지 검증 후 비밀번호 일치 여부 검증
+        User user = userJPARepository.findByEmail(loginDTO.getEmail()).orElseThrow(RuntimeException::new);
+
+        // 비밀번호 일치 여부 검증
+        if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+            throw new RuntimeException();
         }
     }
 }

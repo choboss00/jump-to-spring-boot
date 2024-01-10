@@ -10,7 +10,7 @@ public class UserRequest {
 
     @Getter
     @Setter
-    public static class UserCreateDTO {
+    public static class SignupDTO {
         @Size(min = 4, max = 20, message = "username must be between 4 and 20 characters")
         @NotNull(message = "username is required")
         private String username;
@@ -39,4 +39,21 @@ public class UserRequest {
         }
     }
 
+    @Getter
+    @Setter
+    public static class LoginDTO {
+
+        @NotNull(message = "email is required")
+        @Email
+        private String email;
+
+        @NotNull(message = "password is required")
+        private String password;
+
+        public LoginDTO(String email, String password) {
+            this.email = email;
+            this.password = password;
+        }
+
+    }
 }
