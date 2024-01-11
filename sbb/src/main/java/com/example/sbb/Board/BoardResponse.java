@@ -32,14 +32,34 @@ public class BoardResponse {
         private String content;
         private String writer;
         private LocalDateTime createdAt;
-        private List<Comment> comments;
+        private List<CommentReplyDTO> comments;
 
         public BoardDetailDTO(Board board, List<Comment> comments) {
             this.title = board.getTitle();
             this.content = board.getContent();
             this.writer = board.getUser().getNickname();
             this.createdAt = board.getCreatedAt();
-            this.comments = comments;
+            this.comments = comments.stream()
+                    .map(comment -> new CommentReplyDTO(
+                            comment.getUser().getNickname(),
+                            comment.getContent(),
+                            comment.getCreatedAt()
+                    )).toList();
+        }
+
+        @Getter
+        @Setter
+        public static class CommentReplyDTO {
+            private String writer;
+            private String content;
+            private LocalDateTime createdAt;
+
+            public CommentReplyDTO(String writer, String content, LocalDateTime createdAt) {
+                this.writer = writer;
+                this.content = content;
+                this.createdAt = createdAt;
+            }
         }
     }
+
 }
