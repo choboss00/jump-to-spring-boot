@@ -86,4 +86,37 @@ public class BoardService {
             throw new IllegalStateException("로그인이 필요한 기능입니다.");
         }
     }
+
+    public BoardResponse.BoardListUpdateDTO updateBoard(int id, BoardRequest.PostDTO postDTO, HttpSession session) {
+        /**
+         * 1. 인증
+         * 2. 내가 작성한 게시글이 맞는지 체크
+         * 3. 수정
+         * 4. 게시글에 해당하는 댓글 조회해서 가져오기
+         * **/
+
+        // 세션 인증
+        String email = (String)session.getAttribute("USER_EMAIL");
+
+        emailCheck(email);
+
+        // 내가 작성한 게시글이 맞는지 체크
+        Board board = boardJPARepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        User user = userJPARepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+        if (!board.getUser().equals(user)) {
+            throw new IllegalArgumentException("해당 게시글을 수정할 권한이 없습니다.");
+        }
+
+        // 수정하기
+        board.update(postDTO.getTitle(), postDTO.getContent());
+
+        // 댓글 정보 가져오기
+        List<Comment> comments = commentJPARepository.findAllByBoardId(id);
+
+        return new BoardResponse.BoardListUpdateDTO(board, comments);
+    }
 }

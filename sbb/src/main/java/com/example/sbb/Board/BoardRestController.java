@@ -41,4 +41,12 @@ public class BoardRestController {
         return ResponseEntity.ok(ApiResponseBuilder.success(responseDTO));
     }
 
+    @PutMapping("/modify/{id}")
+    public ResponseEntity<?> updateBoard(@PathVariable int id, @RequestBody BoardRequest.PostDTO postDTO, HttpSession session) {
+        // TO-DO : 게시판 수정 Service 로직 생성
+        BoardResponse.BoardListUpdateDTO responseDTO = boardService.updateBoard(id, postDTO, session);
+
+        return ResponseEntity.ok(ApiResponseBuilder.success(responseDTO));
+    }
+
 }
