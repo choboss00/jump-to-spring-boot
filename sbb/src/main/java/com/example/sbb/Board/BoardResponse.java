@@ -27,29 +27,6 @@ public class BoardResponse {
 
     @Getter
     @Setter
-    public static class BoardListUpdateDTO {
-        private String title;
-        private String content;
-        private String writer;
-        private LocalDateTime updatedAt;
-        private List<BoardDetailDTO.CommentReplyDTO> comments;
-
-        public BoardListUpdateDTO(Board board, List<Comment> comments) {
-            this.title = board.getTitle();
-            this.content = board.getContent();
-            this.writer = board.getUser().getNickname();
-            this.updatedAt = board.getUpdatedAt();
-            this.comments = comments.stream()
-                    .map(comment -> new BoardDetailDTO.CommentReplyDTO(
-                            comment.getUser().getNickname(),
-                            comment.getContent(),
-                            comment.getCreatedAt()
-                    )).toList();
-        }
-    }
-
-    @Getter
-    @Setter
     public static class BoardDetailDTO {
         private String title;
         private String content;

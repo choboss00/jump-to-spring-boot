@@ -88,7 +88,7 @@ public class BoardService {
         }
     }
 
-    public BoardResponse.BoardListUpdateDTO updateBoard(int id, BoardRequest.PostDTO postDTO, HttpSession session) {
+    public BoardResponse.BoardDetailDTO updateBoard(int id, BoardRequest.PostDTO postDTO, HttpSession session) {
         /**
          * 1. 인증
          * 2. 내가 작성한 게시글이 맞는지 체크
@@ -110,7 +110,7 @@ public class BoardService {
         // 댓글 정보 가져오기
         List<Comment> comments = commentJPARepository.findAllByBoardId(id);
 
-        return new BoardResponse.BoardListUpdateDTO(board, comments);
+        return new BoardResponse.BoardDetailDTO(board, comments);
     }
 
     private Board checkBoard(int id, String email) {
