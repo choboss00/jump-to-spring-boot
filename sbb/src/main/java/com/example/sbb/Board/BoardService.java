@@ -65,7 +65,7 @@ public class BoardService {
         // user 인증
         String email = (String)session.getAttribute("USER_EMAIL");
 
-        emailCheck(email);
+        checkEmail(email);
 
         // DB 에서 User 정보 가져오기
         User user = userJPARepository.findByEmail(email)
@@ -80,7 +80,7 @@ public class BoardService {
 
     }
 
-    private void emailCheck(String email) {
+    private void checkEmail(String email) {
         if (email == null) {
             // 사용자가 로그인하지 않은 경우 예외 처리
             throw new IllegalStateException("로그인이 필요한 기능입니다.");
@@ -98,9 +98,21 @@ public class BoardService {
         // 세션 인증
         String email = (String)session.getAttribute("USER_EMAIL");
 
-        emailCheck(email);
+        checkEmail(email);
 
         // 내가 작성한 게시글이 맞는지 체크
+        Board board = checkBoard(id, email);
+
+        // 수정하기
+        board.update(postDTO.getTitle(), postDTO.getContent());
+
+        // 댓글 정보 가져오기
+        List<Comment> comments = commentJPARepository.findAllByBoardId(id);
+
+        return new BoardResponse.BoardListUpdateDTO(board, comments);
+    }
+
+    private Board checkBoard(int id, String email) {
         Board board = boardJPARepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
@@ -110,13 +122,25 @@ public class BoardService {
         if (!board.getUser().equals(user)) {
             throw new IllegalArgumentException("해당 게시글을 수정할 권한이 없습니다.");
         }
+        return board;
+    }
 
-        // 수정하기
-        board.update(postDTO.getTitle(), postDTO.getContent());
+    public void deleteBoard(int id, HttpSession session) {
+        /**
+         * 1. 인증
+         * 2. 내가 작성한 게시글이 맞는지 체크
+         * 3. 게시글 삭제
+         * **/
 
-        // 댓글 정보 가져오기
-        List<Comment> comments = commentJPARepository.findAllByBoardId(id);
+        // 인증
+        String email = (String)session.getAttribute("USER_EMAIL");
 
-        return new BoardResponse.BoardListUpdateDTO(board, comments);
+        checkEmail(email);
+
+        // 내가 작성한 게시글이 맞는지 체크
+        Board board = checkBoard(id, email);
+
+        // 게시글 삭제
+        boardJPARepository.delete(board);
     }
 }

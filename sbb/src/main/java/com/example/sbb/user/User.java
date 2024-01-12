@@ -14,7 +14,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "USERS")
 @Where(clause = "deleted_at IS NULL")
-@SQLDelete(sql = "UPDATE USER SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
+@SQLDelete(sql = "UPDATE USERS SET deleted_at = CURRENT_TIMESTAMP, is_deleted = TRUE where id = ?")
 public class User extends BaseTime {
 
     @Id
