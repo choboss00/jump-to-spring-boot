@@ -29,11 +29,12 @@ public class UserService {
     @Transactional
     public void login(UserRequest.LoginDTO loginDTO) {
         // 로그인 로직 구현 : 동일한 이메일이 존재하는지 검증 후 비밀번호 일치 여부 검증
-        User user = userJPARepository.findByEmail(loginDTO.getEmail()).orElseThrow(RuntimeException::new);
+        User user = userJPARepository.findByEmail(loginDTO.getEmail())
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다."));
 
         // 비밀번호 일치 여부 검증
         if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            throw new RuntimeException();
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
     }
 }

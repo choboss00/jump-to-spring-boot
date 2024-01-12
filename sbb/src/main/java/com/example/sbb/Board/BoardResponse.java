@@ -28,6 +28,7 @@ public class BoardResponse {
     @Getter
     @Setter
     public static class BoardDetailDTO {
+        private int id;
         private String title;
         private String content;
         private String writer;
@@ -35,6 +36,7 @@ public class BoardResponse {
         private List<CommentReplyDTO> comments;
 
         public BoardDetailDTO(Board board, List<Comment> comments) {
+            this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.writer = board.getUser().getNickname();
